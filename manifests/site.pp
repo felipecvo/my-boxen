@@ -39,7 +39,10 @@ Repository {
   extra    => [
     '--recurse-submodules'
   ],
-  require  => Class['git']
+  require  => File["${boxen::config::bindir}/boxen-git-credential"],
+  config   => {
+    'credential.helper' => "${boxen::config::bindir}/boxen-git-credential"
+  }
 }
 
 Service {
@@ -90,17 +93,22 @@ node default {
   include ruby::ree
   include ruby::1_9_3
   include ruby::2_0_0
+  ruby::version { '2.0.0-p247': }
 
   include virtualbox
   include vagrant
+  vagrant::plugin { 'vagrant-vbguest': }
 
   include mysql
   #include postgresql
 
   include macvim
+  include eclipse::java
 
   include dropbox
   include amazonclouddrive
+
+  include redis
 
   include firefox
 
@@ -110,15 +118,35 @@ node default {
   include gitx::dev
   include limechat
   include keepassx
+  include skype
+  include sparrow
 
   include gimp
 
   #include audacity
   include caffeine
+  include appcleaner
+  include notational_velocity
+  #include shiftit
+  include calibre
+  include dashlane
+  include kindle
+  include rdio
+  include steam
+
+  #homebrew::tap {  }
+
+  #package { 'curl-ca-bundle':
+  #  ensure => present,
+  #}
 
   package { 'htop':
     ensure => present,
   }
+
+  #package { 'libvirt':
+  #  ensure => present,
+  #}
 
   package { 'groovy':
     ensure => present,
