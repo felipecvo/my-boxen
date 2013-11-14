@@ -1,3 +1,11 @@
+#class { 'homebrew':
+#  installdir => '/usr/local',
+#  libdir     => "/usr/local/lib",
+#  cmddir     => "/usr/local/Library/Homebrew/cmd",
+#  tapsdir    => "/usr/local/Library/Taps",
+#  brewsdir   => "/usr/local/Library/Taps/brews",
+#  user       => "root",
+#}
 #require boxen::environment
 #require homebrew
 #require gcc
